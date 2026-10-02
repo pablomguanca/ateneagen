@@ -3,41 +3,41 @@
 // ============================================================
 
 :root {
-  --negro:            #06060A;
-  --negro-2:          #0E0E18;
-  --superficie:       #1A1A2E;
-  --superficie-borde: #2A2A44;
+  --negro: #F4F7F6;
+  --negro-2: #FFFFFF;
+  --superficie: #FFFFFF;
+  --superficie-borde: #E2E8F0;
 
-  --dorado:           #C9A84C;
-  --dorado-claro:     #E8C97A;
-  --dorado-papel:     #A3812C;
-  --dorado-tenue:     rgba(201, 168, 76, 0.32);
-  --dorado-fondo:     rgba(201, 168, 76, 0.1);
+  --dorado: #00C896;
+  --dorado-claro: #33D6AA;
+  --dorado-papel: #00A076;
+  --dorado-tenue: rgba(0, 200, 150, 0.15);
+  --dorado-fondo: rgba(0, 200, 150, 0.08);
 
-  --marfil:           #F0EBE0;
-  --marfil-apagado:   #9E9688;
-  --marfil-tenue:     #5F5B66;
+  --marfil: #333333;
+  --marfil-apagado: #666666;
+  --marfil-tenue: #888888;
 
-  --papel:            #FFFFFF;
-  --tinta:            #06060A;
-  --tinta-suave:      #5C574E;
-  --tinta-tenue:      #B5AEA0;
-  --linea-papel:      #E6E0D4;
+  --papel: #FFFFFF;
+  --tinta: #1A202C;
+  --tinta-suave: #4A5568;
+  --tinta-tenue: #718096;
+  --linea-papel: #E2E8F0;
 
-  --velo:             rgba(6, 6, 10, 0.78);
-  --sombra-hoja:      0 1.2em 3.6em rgba(0, 0, 0, 0.5);
-  --sombra-menu:      0 1rem 2.5rem rgba(0, 0, 0, 0.55);
+  --velo: rgba(26, 32, 44, 0.6);
+  --sombra-hoja: 0 1.2em 3.6em rgba(0, 0, 0, 0.08);
+  --sombra-menu: 0 1rem 2.5rem rgba(0, 0, 0, 0.1);
 
-  --fuente-display:   'Bebas Neue', 'Georgia', serif;
-  --fuente-texto:     'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --fuente-display: 'Bebas Neue', 'Georgia', serif;
+  --fuente-texto: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
 
-  --radio-s:          4px;
-  --radio-m:          8px;
-  --radio-l:          1.4rem;
+  --radio-s: 4px;
+  --radio-m: 8px;
+  --radio-l: 1.4rem;
 
-  --transicion:       0.2s ease;
-  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-back:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transicion: 0.2s ease;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 // ============================================================
@@ -189,11 +189,13 @@ textarea {
   cursor: pointer;
   text-decoration: none;
   transition: background-color var(--transicion),
-              border-color var(--transicion),
-              color var(--transicion);
+    border-color var(--transicion),
+    color var(--transicion);
   flex-shrink: 0;
 
-  &[hidden] { display: none; }
+  &[hidden] {
+    display: none;
+  }
 
   svg {
     width: 1rem;
@@ -209,7 +211,9 @@ textarea {
     background: var(--dorado);
     color: var(--negro);
 
-    &:hover { background: var(--dorado-claro); }
+    &:hover {
+      background: var(--dorado-claro);
+    }
   }
 
   &--secundario {
@@ -225,7 +229,9 @@ textarea {
     padding: 0.55rem 0.6rem;
     color: var(--marfil-apagado);
 
-    &:hover { color: var(--dorado-claro); }
+    &:hover {
+      color: var(--dorado-claro);
+    }
   }
 
   &--chico {
@@ -293,8 +299,13 @@ textarea {
   min-height: 0;
 
   &--previa {
-    .editor { display: none; }
-    .visor  { display: block; }
+    .editor {
+      display: none;
+    }
+
+    .visor {
+      display: block;
+    }
   }
 }
 
@@ -332,7 +343,9 @@ textarea {
     font-size: 0.78rem;
     color: var(--marfil-apagado);
 
-    p { margin: 0 0 0.6rem; }
+    p {
+      margin: 0 0 0.6rem;
+    }
   }
 
   &__estado {
@@ -360,7 +373,9 @@ textarea {
     list-style: none;
     cursor: pointer;
 
-    &::-webkit-details-marker { display: none; }
+    &::-webkit-details-marker {
+      display: none;
+    }
 
     &:hover .paso__titulo {
       color: var(--dorado-claro);
@@ -379,7 +394,7 @@ textarea {
     }
   }
 
-  &[open] > .paso__resumen::after {
+  &[open]>.paso__resumen::after {
     transform: rotate(-135deg);
   }
 
@@ -432,7 +447,9 @@ textarea {
   gap: 0.35rem;
   min-width: 0;
 
-  &--ancho { grid-column: 1 / -1; }
+  &--ancho {
+    grid-column: 1 / -1;
+  }
 
   &__etiqueta {
     font-size: 0.78rem;
@@ -449,7 +466,7 @@ textarea {
 .control {
   width: 100%;
   padding: 0.6rem 0.7rem;
-  border: 1px solid transparent;
+  border: 1px solid #88888875;
   border-radius: var(--radio-s);
   background: var(--superficie);
   color: var(--marfil);
@@ -457,8 +474,13 @@ textarea {
   line-height: 1.4;
   transition: border-color var(--transicion);
 
-  &::placeholder { color: var(--marfil-tenue); }
-  &:hover        { border-color: var(--superficie-borde); }
+  &::placeholder {
+    color: var(--marfil-tenue);
+  }
+
+  &:hover {
+    border-color: var(--superficie-borde);
+  }
 
   &:focus {
     outline: none;
@@ -506,7 +528,9 @@ textarea {
   position: relative;
   display: block;
 
-  .control { padding-right: 1.6rem; }
+  .control {
+    padding-right: 1.6rem;
+  }
 
   &::after {
     content: '%';
@@ -576,9 +600,13 @@ textarea {
     padding: 0.5rem 0.5rem 0.5rem 0.6rem;
   }
 
-  &--pago { grid-template-columns: 1fr 5.5rem auto; }
+  &--pago {
+    grid-template-columns: 1fr 5.5rem auto;
+  }
 
-  &--opcional { border-style: dashed; }
+  &--opcional {
+    border-style: dashed;
+  }
 
   &__cabecera {
     display: flex;
@@ -718,7 +746,9 @@ textarea {
       box-shadow: var(--sombra-menu);
     }
 
-    &--pdf { max-width: 780px; }
+    &--pdf {
+      max-width: 780px;
+    }
 
     &--escritorio {
       overflow: clip;
@@ -752,7 +782,9 @@ textarea {
   cursor: pointer;
   transition: background-color var(--transicion), color var(--transicion);
 
-  &:hover { color: var(--marfil); }
+  &:hover {
+    color: var(--marfil);
+  }
 
   &[aria-pressed="true"] {
     background: var(--superficie);
@@ -800,9 +832,13 @@ textarea {
   background: var(--negro-2);
   color: var(--marfil);
 
-  &--ancho { width: min(34rem, calc(100vw - 2rem)); }
+  &--ancho {
+    width: min(34rem, calc(100vw - 2rem));
+  }
 
-  &::backdrop { background: var(--velo); }
+  &::backdrop {
+    background: var(--velo);
+  }
 
   &__titulo {
     margin: 0 0 0.6rem;
@@ -835,7 +871,9 @@ textarea {
     }
   }
 
-  &__nota { margin-bottom: 1rem; }
+  &__nota {
+    margin-bottom: 1rem;
+  }
 
   &__resumen {
     margin: 0 0 1.2rem;
@@ -852,7 +890,9 @@ textarea {
       font-size: 0.88rem;
     }
 
-    dt { color: var(--marfil-apagado); }
+    dt {
+      color: var(--marfil-apagado);
+    }
 
     dd {
       margin: 0;
@@ -880,13 +920,13 @@ textarea {
 // ============================================================
 
 .doc {
-  --d-fondo:       var(--papel);
-  --d-texto:       var(--tinta);
-  --d-suave:       var(--tinta-suave);
-  --d-tenue:       var(--tinta-tenue);
-  --d-linea:       var(--linea-papel);
-  --d-acento:      var(--dorado-papel);
-  --d-panel:       var(--negro);
+  --d-fondo: var(--papel);
+  --d-texto: var(--tinta);
+  --d-suave: var(--tinta-suave);
+  --d-tenue: var(--tinta-tenue);
+  --d-linea: var(--linea-papel);
+  --d-acento: var(--dorado-papel);
+  --d-panel: var(--negro);
   --d-panel-linea: var(--superficie);
 
   font-family: var(--fuente-texto);
@@ -894,18 +934,22 @@ textarea {
   line-height: 1.55;
   color: var(--d-texto);
 
-  p { margin: 0 0 0.9em; }
+  p {
+    margin: 0 0 0.9em;
+  }
 
-  &__vacio { color: var(--d-tenue); }
+  &__vacio {
+    color: var(--d-tenue);
+  }
 
   &--web {
-    --d-fondo:       var(--negro);
-    --d-texto:       var(--marfil);
-    --d-suave:       var(--marfil-apagado);
-    --d-tenue:       var(--marfil-tenue);
-    --d-linea:       var(--superficie);
-    --d-acento:      var(--dorado);
-    --d-panel:       var(--negro-2);
+    --d-fondo: var(--negro);
+    --d-texto: var(--marfil);
+    --d-suave: var(--marfil-apagado);
+    --d-tenue: var(--marfil-tenue);
+    --d-linea: var(--superficie);
+    --d-acento: var(--dorado);
+    --d-panel: var(--negro-2);
     --d-panel-linea: var(--superficie-borde);
 
     font-size: 17px;
@@ -928,7 +972,9 @@ textarea {
   color: var(--portada-texto, var(--marfil));
   box-shadow: var(--sombra-hoja);
 
-  .doc__vacio { color: var(--portada-apagado, var(--marfil-tenue)); }
+  .doc__vacio {
+    color: var(--portada-apagado, var(--marfil-tenue));
+  }
 
   &::before {
     content: '';
@@ -967,7 +1013,9 @@ textarea {
     text-align: right;
   }
 
-  &__centro { margin: auto 0; }
+  &__centro {
+    margin: auto 0;
+  }
 
   &__para {
     margin: 0 0 1.3em;
@@ -1021,7 +1069,9 @@ textarea {
       }
     }
 
-    .portada__urgente { color: var(--portada-acento-claro, var(--dorado-claro)); }
+    .portada__urgente {
+      color: var(--portada-acento-claro, var(--dorado-claro));
+    }
   }
 }
 
@@ -1071,7 +1121,9 @@ textarea {
   &__contenido {
     min-width: 0;
 
-    > p { max-width: 40em; }
+    >p {
+      max-width: 40em;
+    }
   }
 
   &__titulo {
@@ -1182,7 +1234,9 @@ textarea {
     column-gap: 2em;
     font-size: 0.95em;
 
-    li { margin-bottom: 0.35em; }
+    li {
+      margin-bottom: 0.35em;
+    }
   }
 
   &__sumar {
@@ -1211,7 +1265,9 @@ textarea {
       stroke-linejoin: round;
     }
 
-    &:hover { background: var(--dorado-fondo); }
+    &:hover {
+      background: var(--dorado-fondo);
+    }
 
     &[aria-pressed="true"] {
       background: var(--dorado);
@@ -1238,7 +1294,9 @@ textarea {
   column-gap: 1.1em;
   padding-bottom: 1.5em;
 
-  &:last-child { padding-bottom: 0; }
+  &:last-child {
+    padding-bottom: 0;
+  }
 
   &:not(:last-child)::after {
     content: '';
@@ -1302,7 +1360,9 @@ textarea {
     color: var(--dorado-claro);
   }
 
-  &__filas { margin: 0; }
+  &__filas {
+    margin: 0;
+  }
 
   &__fila {
     display: flex;
@@ -1312,15 +1372,22 @@ textarea {
     border-bottom: 1px solid var(--d-panel-linea);
     font-variant-numeric: tabular-nums;
 
-    dt { color: var(--marfil-apagado); }
-    dd { margin: 0; }
+    dt {
+      color: var(--marfil-apagado);
+    }
+
+    dd {
+      margin: 0;
+    }
 
     &--total {
       align-items: baseline;
       padding-top: 0.7em;
       border-bottom: 0;
 
-      dt { color: var(--marfil); }
+      dt {
+        color: var(--marfil);
+      }
 
       dd {
         font-family: var(--fuente-display);
@@ -1478,7 +1545,9 @@ textarea {
     color: inherit;
     text-decoration: none;
 
-    &:hover { color: var(--d-acento); }
+    &:hover {
+      color: var(--d-acento);
+    }
   }
 
   &__nombre {
@@ -1498,7 +1567,9 @@ textarea {
     text-underline-offset: 3px;
     cursor: pointer;
 
-    &:hover { color: var(--d-acento); }
+    &:hover {
+      color: var(--d-acento);
+    }
   }
 
   &__credito {
@@ -1559,26 +1630,38 @@ textarea {
     padding: 3.6em clamp(1.6em, 7cqw, 6em) 3.4em;
     box-shadow: none;
 
-    &::before { inset: clamp(0.8em, 2cqw, 1.6em); }
+    &::before {
+      inset: clamp(0.8em, 2cqw, 1.6em);
+    }
   }
 
-  .portada__titulo { font-size: 5em; }
-  .portada__meta   { grid-template-columns: repeat(4, auto); }
+  .portada__titulo {
+    font-size: 5em;
+  }
+
+  .portada__meta {
+    grid-template-columns: repeat(4, auto);
+  }
 
   .cuerpo {
     margin: 0;
     padding: 5em clamp(1.4em, 6cqw, 4em) 4em;
     box-shadow: none;
 
-    > * {
+    >* {
       max-width: 50em;
       margin-left: auto;
       margin-right: auto;
     }
   }
 
-  .doc-aviso { margin-bottom: 3em; }
-  .pie       { margin-top: 3.6em; }
+  .doc-aviso {
+    margin-bottom: 3em;
+  }
+
+  .pie {
+    margin-top: 3.6em;
+  }
 }
 
 // ============================================================
@@ -1626,17 +1709,29 @@ textarea {
       padding: 2.6em 1.7em 2.4em;
     }
 
-    .portada__titulo { font-size: 2.9em; }
-    .portada__para   { font-size: 1em; }
-    .portada__meta   { gap: 1.3em 1.6em; }
+    .portada__titulo {
+      font-size: 2.9em;
+    }
 
-    .cuerpo { padding: 3.4em 1.3em 3em; }
+    .portada__para {
+      font-size: 1em;
+    }
+
+    .portada__meta {
+      gap: 1.3em 1.6em;
+    }
+
+    .cuerpo {
+      padding: 3.4em 1.3em 3em;
+    }
 
     .bloque {
       grid-template-columns: 1fr;
       padding: 2.2em 0;
 
-      &:first-of-type { padding-top: 0; }
+      &:first-of-type {
+        padding-top: 0;
+      }
     }
 
     .bloque__num {
@@ -1644,14 +1739,25 @@ textarea {
       font-size: 1.4em;
     }
 
-    .bloque__titulo { font-size: 1.85em; }
+    .bloque__titulo {
+      font-size: 1.85em;
+    }
 
-    .servicio__cabecera { gap: 1em; }
-    .servicio__precio   { font-size: 1.4em; }
+    .servicio__cabecera {
+      gap: 1em;
+    }
 
-    .servicio .doc-lista { grid-template-columns: 1fr; }
+    .servicio__precio {
+      font-size: 1.4em;
+    }
 
-    .etapa { grid-template-columns: 2.4em 1fr; }
+    .servicio .doc-lista {
+      grid-template-columns: 1fr;
+    }
+
+    .etapa {
+      grid-template-columns: 2.4em 1fr;
+    }
 
     .etapa__duracion {
       grid-column: 2;
@@ -1660,10 +1766,17 @@ textarea {
       font-size: 0.85em;
     }
 
-    .resumen { padding: 1.6em 1.4em; }
-    .cierre  { padding: 1.7em 1.4em; }
+    .resumen {
+      padding: 1.6em 1.4em;
+    }
 
-    .cierre__acciones .boton { flex: 1 1 100%; }
+    .cierre {
+      padding: 1.7em 1.4em;
+    }
+
+    .cierre__acciones .boton {
+      flex: 1 1 100%;
+    }
 
     .pie__pdf {
       flex-basis: 100%;
@@ -1672,7 +1785,9 @@ textarea {
     }
   }
 
-  .barra-cliente__monto { font-size: 1.4rem; }
+  .barra-cliente__monto {
+    font-size: 1.4rem;
+  }
 }
 
 // ============================================================
@@ -1688,9 +1803,13 @@ body.modo-cliente {
   .barra,
   .pestanas,
   .editor,
-  .visor__barra { display: none; }
+  .visor__barra {
+    display: none;
+  }
 
-  .app { display: block; }
+  .app {
+    display: block;
+  }
 
   .visor {
     display: block;
@@ -1717,7 +1836,9 @@ body.modo-cliente {
 // ============================================================
 
 @media (max-width: 1320px) {
-  .barra__producto { display: none; }
+  .barra__producto {
+    display: none;
+  }
 
   .menu {
     .menu__alternar {
@@ -1767,20 +1888,30 @@ body.modo-cliente {
 }
 
 @media (max-width: 900px) {
-  body { grid-template-rows: auto auto 1fr; }
+  body {
+    grid-template-rows: auto auto 1fr;
+  }
 
   .barra {
     gap: 0.6rem;
     padding: 0.7rem 1rem;
   }
 
-  .barra__logo { font-size: 1.4rem; }
+  .barra__logo {
+    font-size: 1.4rem;
+  }
 
-  .pestanas { display: flex; }
+  .pestanas {
+    display: flex;
+  }
 
-  .app { grid-template-columns: 1fr; }
+  .app {
+    grid-template-columns: 1fr;
+  }
 
-  .editor { border-right: 0; }
+  .editor {
+    border-right: 0;
+  }
 
   .visor {
     display: none;
@@ -1792,13 +1923,22 @@ body.modo-cliente {
     padding: 0.6rem 0.8rem;
   }
 
-  .visor__nota { display: none; }
+  .visor__nota {
+    display: none;
+  }
 
-  .segmentos { margin: 0 auto; }
+  .segmentos {
+    margin: 0 auto;
+  }
 
   .app--previa {
-    .editor { display: none; }
-    .visor  { display: block; }
+    .editor {
+      display: none;
+    }
+
+    .visor {
+      display: block;
+    }
   }
 
   .paso__resumen,
@@ -1811,13 +1951,21 @@ body.modo-cliente {
 }
 
 @media (max-width: 420px) {
-  .boton__extra { display: none; }
+  .boton__extra {
+    display: none;
+  }
 
-  .grilla { grid-template-columns: 1fr; }
+  .grilla {
+    grid-template-columns: 1fr;
+  }
 
-  .item--pago { grid-template-columns: 1fr 4.6rem auto; }
+  .item--pago {
+    grid-template-columns: 1fr 4.6rem auto;
+  }
 
-  .enlace { flex-direction: column; }
+  .enlace {
+    flex-direction: column;
+  }
 }
 
 // ============================================================
@@ -1845,7 +1993,9 @@ body.modo-cliente {
   color: var(--marfil);
   text-align: left;
 
-  &:hover { border-color: var(--marfil-tenue); }
+  &:hover {
+    border-color: var(--marfil-tenue);
+  }
 
   &--activo {
     border-color: var(--dorado);
@@ -1862,7 +2012,9 @@ body.modo-cliente {
   span {
     flex: 1;
 
-    &:first-child { flex: 2; }
+    &:first-child {
+      flex: 2;
+    }
   }
 }
 
@@ -1871,7 +2023,9 @@ body.modo-cliente {
   text-align: center;
   color: var(--marfil-apagado);
 
-  .tema-card--activo & { color: var(--dorado); }
+  .tema-card--activo & {
+    color: var(--dorado);
+  }
 }
 
 .diseno-fila {
@@ -1897,9 +2051,19 @@ body.modo-cliente {
   background: none;
   cursor: pointer;
 
-  &::-webkit-color-swatch-wrapper { padding: 2px; }
-  &::-webkit-color-swatch { border: none; border-radius: 2px; }
-  &::-moz-color-swatch { border: none; border-radius: 2px; }
+  &::-webkit-color-swatch-wrapper {
+    padding: 2px;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
 }
 
 .icono-pincel {
@@ -1927,6 +2091,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateY(2.4em);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1938,6 +2103,7 @@ body.modo-cliente {
     opacity: 0;
     transform: scale(0.92) translateY(1.6em);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1945,18 +2111,33 @@ body.modo-cliente {
 }
 
 @keyframes dibujarLinea {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes dibujarBorde {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes aparecerSuave {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes deslizarArriba {
@@ -1964,6 +2145,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateY(1.5rem);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1971,13 +2153,25 @@ body.modo-cliente {
 }
 
 @keyframes conectorCrece {
-  from { transform: scaleY(0); }
-  to   { transform: scaleY(1); }
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
 }
 
 @keyframes pulsar {
-  0%, 100% { box-shadow: 0 0 0 0 var(--dorado-tenue); }
-  50% { box-shadow: 0 0 0 6px transparent; }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--dorado-tenue);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
 }
 
 // ============================================================
@@ -2009,10 +2203,13 @@ body.modo-cliente {
   .portada__meta {
     animation: revelar 0.7s 1.1s var(--ease-out-expo) both;
 
-    > div {
+    >div {
       animation: aparecerSuave 0.5s var(--ease-out-expo) both;
+
       @for $i from 1 through 4 {
-        &:nth-child(#{$i}) { animation-delay: #{1.15 + $i * 0.1}s; }
+        &:nth-child(#{$i}) {
+          animation-delay: #{1.15 + $i * 0.1}s;
+        }
       }
     }
   }
@@ -2027,7 +2224,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateY(2em);
     transition: opacity 0.65s var(--ease-out-expo),
-                transform 0.65s var(--ease-out-expo);
+      transform 0.65s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2039,7 +2236,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateY(1.2em);
     transition: opacity 0.5s var(--ease-out-expo),
-                transform 0.5s var(--ease-out-expo);
+      transform 0.5s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2051,7 +2248,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateX(-1em);
     transition: opacity 0.5s var(--ease-out-expo),
-                transform 0.5s var(--ease-out-expo);
+      transform 0.5s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2071,7 +2268,7 @@ body.modo-cliente {
 
   .etapa__num {
     transition: transform 0.4s var(--ease-out-back),
-                box-shadow 0.4s var(--ease-out-expo);
+      box-shadow 0.4s var(--ease-out-expo);
   }
 
   .etapa.visible .etapa__num {
@@ -2082,7 +2279,7 @@ body.modo-cliente {
     opacity: 0;
     transform: scale(0.94) translateY(1.2em);
     transition: opacity 0.6s var(--ease-out-expo),
-                transform 0.6s var(--ease-out-expo);
+      transform 0.6s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2094,7 +2291,7 @@ body.modo-cliente {
     opacity: 0;
     transform: translateY(1.5em);
     transition: opacity 0.6s var(--ease-out-expo),
-                transform 0.6s var(--ease-out-expo);
+      transform 0.6s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2106,14 +2303,16 @@ body.modo-cliente {
     opacity: 0;
     transition: opacity 0.6s 0.1s var(--ease-out-expo);
 
-    &.visible { opacity: 1; }
+    &.visible {
+      opacity: 1;
+    }
   }
 
   .doc-aviso {
     opacity: 0;
     transform: translateX(-1em);
     transition: opacity 0.5s var(--ease-out-expo),
-                transform 0.5s var(--ease-out-expo);
+      transform 0.5s var(--ease-out-expo);
 
     &.visible {
       opacity: 1;
@@ -2133,9 +2332,9 @@ body.modo-cliente {
   margin-right: -1em;
   border-radius: var(--radio-m);
   transition: opacity 0.5s var(--ease-out-expo),
-              transform 0.5s var(--ease-out-expo),
-              background-color 0.25s ease,
-              box-shadow 0.25s ease;
+    transform 0.5s var(--ease-out-expo),
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
     background: rgba(201, 168, 76, 0.04);
@@ -2150,8 +2349,8 @@ body.modo-cliente {
   margin-right: -0.6em;
   border-radius: var(--radio-m);
   transition: opacity 0.5s var(--ease-out-expo),
-              transform 0.5s var(--ease-out-expo),
-              background-color 0.25s ease;
+    transform 0.5s var(--ease-out-expo),
+    background-color 0.25s ease;
 
   &:hover {
     background: rgba(201, 168, 76, 0.04);
@@ -2165,8 +2364,8 @@ body.modo-cliente {
 
 .doc--web .resumen {
   transition: opacity 0.6s var(--ease-out-expo),
-              transform 0.6s var(--ease-out-expo),
-              box-shadow 0.3s ease;
+    transform 0.6s var(--ease-out-expo),
+    box-shadow 0.3s ease;
 
   &:hover {
     box-shadow: 0 0.6em 2.4em rgba(0, 0, 0, 0.25);
@@ -2175,8 +2374,8 @@ body.modo-cliente {
 
 .doc--web .cierre {
   transition: opacity 0.6s var(--ease-out-expo),
-              transform 0.6s var(--ease-out-expo),
-              box-shadow 0.3s ease;
+    transform 0.6s var(--ease-out-expo),
+    box-shadow 0.3s ease;
 
   &:hover {
     box-shadow: 0 0.6em 2em rgba(0, 0, 0, 0.2);
@@ -2186,8 +2385,8 @@ body.modo-cliente {
 // Botón primario: escala + brillo
 .boton--primario {
   transition: background-color var(--transicion),
-              transform 0.15s var(--ease-out-back),
-              box-shadow 0.2s ease;
+    transform 0.15s var(--ease-out-back),
+    box-shadow 0.2s ease;
 
   &:hover {
     background: var(--dorado-claro);
@@ -2204,8 +2403,8 @@ body.modo-cliente {
 // Botón secundario
 .boton--secundario {
   transition: border-color var(--transicion),
-              color var(--transicion),
-              transform 0.15s var(--ease-out-back);
+    color var(--transicion),
+    transform 0.15s var(--ease-out-back);
 
   &:hover {
     transform: translateY(-1px);
@@ -2219,9 +2418,9 @@ body.modo-cliente {
 // Servicio sumar button
 .servicio__sumar {
   transition: background-color var(--transicion),
-              color var(--transicion),
-              transform 0.2s var(--ease-out-back),
-              box-shadow 0.2s ease;
+    color var(--transicion),
+    transform 0.2s var(--ease-out-back),
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: scale(1.03);
@@ -2255,7 +2454,7 @@ body.modo-cliente {
   opacity: 0;
   transform: translateX(-0.8em);
   transition: opacity 0.35s var(--ease-out-expo),
-              transform 0.35s var(--ease-out-expo);
+    transform 0.35s var(--ease-out-expo);
 }
 
 .doc--web .visible .doc-lista li {
@@ -2274,7 +2473,7 @@ body.modo-cliente {
   opacity: 0;
   transform: translateY(0.6em);
   transition: opacity 0.4s var(--ease-out-expo),
-              transform 0.4s var(--ease-out-expo);
+    transform 0.4s var(--ease-out-expo);
 }
 
 .doc--web .visible .pasos li {
@@ -2293,7 +2492,7 @@ body.modo-cliente {
   opacity: 0;
   transform: translateY(0.5em);
   transition: opacity 0.35s var(--ease-out-expo),
-              transform 0.35s var(--ease-out-expo);
+    transform 0.35s var(--ease-out-expo);
 }
 
 .doc--web .visible .pagos tbody tr {
@@ -2308,19 +2507,19 @@ body.modo-cliente {
 }
 
 // Firmas
-.doc--web .firmas > div {
+.doc--web .firmas>div {
   opacity: 0;
   transform: translateY(1em);
   transition: opacity 0.5s var(--ease-out-expo),
-              transform 0.5s var(--ease-out-expo);
+    transform 0.5s var(--ease-out-expo);
 }
 
-.doc--web .visible .firmas > div {
+.doc--web .visible .firmas>div {
   opacity: 1;
   transform: translateY(0);
 }
 
-.doc--web .visible .firmas > div:nth-child(2) {
+.doc--web .visible .firmas>div:nth-child(2) {
   transition-delay: 0.15s;
 }
 
@@ -2329,6 +2528,7 @@ body.modo-cliente {
 // ============================================================
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -2347,7 +2547,9 @@ body.modo-cliente {
     margin: 16mm 0 18mm;
   }
 
-  @page :first { margin: 0; }
+  @page :first {
+    margin: 0;
+  }
 
   * {
     -webkit-print-color-adjust: exact;
