@@ -10,12 +10,12 @@
 
 (() => {
   const firebaseConfig = {
-    apiKey:            'TU_API_KEY',
-    authDomain:        'TU_PROYECTO.firebaseapp.com',
-    projectId:         'TU_PROYECTO',
-    storageBucket:     'TU_PROYECTO.firebasestorage.app',
-    messagingSenderId: '000000000000',
-    appId:             '1:000000000000:web:xxxxxxxxxxxxxx'
+    apiKey:            'AIzaSyA4fAtms8k5hOEvtFiTnf6B2ijg2jiWDtg',
+    authDomain:        'dealit-7f735.firebaseapp.com',
+    projectId:         'dealit-7f735',
+    storageBucket:     'dealit-7f735.firebasestorage.app',
+    messagingSenderId: '837213426465',
+    appId:             '1:837213426465:web:91f1c863f453efe950e460'
   };
 
   const PLACEHOLDER = firebaseConfig.apiKey === 'TU_API_KEY';
