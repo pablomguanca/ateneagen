@@ -47,6 +47,22 @@
 
   const onAuthChange = callback => auth.onAuthStateChanged(callback);
 
+  const signInGoogle = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const cred = await auth.signInWithPopup(provider);
+    const userRef = db.collection('users').doc(cred.user.uid);
+    const snap = await userRef.get();
+    if (!snap.exists) {
+      await userRef.set({
+        email: cred.user.email,
+        displayName: cred.user.displayName || '',
+        photoURL: cred.user.photoURL || '',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    return cred;
+  };
+
   const signIn = (email, password) => auth.signInWithEmailAndPassword(email, password);
 
   const signUp = async (email, password, displayName) => {
@@ -166,7 +182,7 @@
   // ----------------------------------------------------------
 
   window.AteneaDB = {
-    auth: { getUser, getUid, onAuthChange, signIn, signUp, signOut },
+    auth: { getUser, getUid, onAuthChange, signInGoogle, signIn, signUp, signOut },
     proposals: {
       crear:      crearPropuesta,
       obtener:    obtenerPropuesta,

@@ -17,6 +17,63 @@
 </head>
 <body>
 
+<div id="auth-pantalla" class="auth" hidden>
+  <div class="auth__fondo"></div>
+  <div class="auth__card">
+    <div class="auth__marca">
+      <span class="auth__logo">Dealit</span>
+      <p class="auth__eslogan">Armá propuestas profesionales y cerralas con un link.</p>
+    </div>
+
+    <button type="button" class="auth__google" id="auth-google">
+      <svg class="auth__google-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09A6.97 6.97 0 0 1 5.48 12c0-.72.13-1.43.36-2.09V7.07H2.18A11.96 11.96 0 0 0 0 12c0 1.94.46 3.77 1.28 5.4l3.56-2.77.01-.54z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 1.77 14.97.64 12 .64 7.7.64 3.99 3.11 2.18 6.6l3.66 2.84c.87-2.6 3.3-4.06 6.16-4.06z" fill="#EA4335"/></svg>
+      <span>Continuar con Google</span>
+    </button>
+
+    <div class="auth__separador">
+      <span>o con email</span>
+    </div>
+
+    <details class="auth__email-toggle">
+      <summary class="auth__email-link">Usar email y contraseña</summary>
+
+      <div class="auth__tabs">
+        <button type="button" class="auth__tab auth__tab--activo" data-auth-tab="login">Iniciar sesión</button>
+        <button type="button" class="auth__tab" data-auth-tab="registro">Crear cuenta</button>
+      </div>
+
+      <form id="auth-form" class="auth__form" novalidate>
+        <div class="auth__campo auth__campo--nombre" hidden>
+          <label class="auth__label" for="auth-nombre">Nombre</label>
+          <input id="auth-nombre" class="auth__input" type="text" placeholder="Tu nombre o el de tu marca" autocomplete="name">
+        </div>
+        <div class="auth__campo">
+          <label class="auth__label" for="auth-email">Email</label>
+          <input id="auth-email" class="auth__input" type="email" placeholder="tu@email.com" autocomplete="email" required>
+        </div>
+        <div class="auth__campo">
+          <label class="auth__label" for="auth-pass">Contraseña</label>
+          <div class="auth__pass-wrap">
+            <input id="auth-pass" class="auth__input" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password" required minlength="6">
+            <button type="button" class="auth__ver-pass" data-auth-toggle-pass aria-label="Mostrar contraseña">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <p id="auth-error" class="auth__error" hidden></p>
+        <button type="submit" class="auth__submit" id="auth-submit">
+          <span class="auth__submit-texto">Iniciar sesión</span>
+          <svg class="auth__spinner" viewBox="0 0 24 24" hidden><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="50 20"/></svg>
+        </button>
+      </form>
+    </details>
+
+    <p id="auth-error-google" class="auth__error" hidden></p>
+
+    <p class="auth__pie">Tu cuenta guarda propuestas, clientes y configuración en la nube.</p>
+  </div>
+</div>
+
 <header class="barra">
   <div class="barra__marca">
     <span class="barra__logo">Dealit</span>
@@ -34,6 +91,9 @@
         <button type="button" class="boton boton--secundario menu__opcion" data-accion="abrir-borrador">Abrir borrador</button>
         <button type="button" class="boton boton--secundario menu__opcion" data-accion="guardar-borrador">Guardar borrador</button>
         <button type="button" class="boton boton--secundario menu__opcion" data-accion="pdf">Descargar PDF</button>
+        <span class="barra__separador" aria-hidden="true"></span>
+        <span class="menu__usuario" id="menu-usuario"></span>
+        <button type="button" class="boton boton--texto menu__opcion menu__opcion--salir" data-accion="cerrar-sesion">Cerrar sesión</button>
       </div>
     </div>
     <button type="button" class="boton boton--primario" data-accion="compartir">
