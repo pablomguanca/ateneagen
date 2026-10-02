@@ -56,6 +56,81 @@
     </div>
 
     <form id="formulario" novalidate>
+      <details class="paso">
+        <summary class="paso__resumen">
+          <span class="paso__num icono-pincel"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.5 1.5l3 3-8.5 8.5H3v-3l8.5-8.5z"/></svg></span>
+          <span class="paso__titulo">Diseño</span>
+          <span class="paso__desc">Colores y tipografía de la propuesta</span>
+        </summary>
+        <div class="paso__contenido">
+          <h3 class="separador-campos">Tema</h3>
+          <div class="temas" id="temas-grid">
+            <button type="button" class="tema-card tema-card--activo" data-tema="elegante-oscuro">
+              <div class="tema-card__muestra"><span style="background:#06060A"></span><span style="background:#C9A84C"></span><span style="background:#F0EBE0"></span></div>
+              <span class="tema-card__nombre">Elegante oscuro</span>
+            </button>
+            <button type="button" class="tema-card" data-tema="corporativo">
+              <div class="tema-card__muestra"><span style="background:#FFFFFF"></span><span style="background:#2563EB"></span><span style="background:#0F172A"></span></div>
+              <span class="tema-card__nombre">Corporativo</span>
+            </button>
+            <button type="button" class="tema-card" data-tema="moderno">
+              <div class="tema-card__muestra"><span style="background:#0F172A"></span><span style="background:#8B5CF6"></span><span style="background:#E2E8F0"></span></div>
+              <span class="tema-card__nombre">Moderno</span>
+            </button>
+            <button type="button" class="tema-card" data-tema="calido">
+              <div class="tema-card__muestra"><span style="background:#FFFBEB"></span><span style="background:#B45309"></span><span style="background:#292524"></span></div>
+              <span class="tema-card__nombre">Cálido</span>
+            </button>
+            <button type="button" class="tema-card" data-tema="minimalista">
+              <div class="tema-card__muestra"><span style="background:#FAFAFA"></span><span style="background:#18181B"></span><span style="background:#171717"></span></div>
+              <span class="tema-card__nombre">Minimalista</span>
+            </button>
+          </div>
+
+          <h3 class="separador-campos">Personalizar</h3>
+          <div class="grilla">
+            <div class="campo">
+              <span class="campo__etiqueta">Color de acento</span>
+              <div class="color-campo">
+                <input class="color-input" type="color" id="tema-acento" value="#C9A84C">
+                <span class="campo__etiqueta" style="font-size:0.8em;color:var(--marfil-apagado)">Tu color de marca</span>
+              </div>
+            </div>
+            <label class="campo">
+              <span class="campo__etiqueta">Tipografía de títulos</span>
+              <select class="control" id="tema-fuente-titulos">
+                <option>Bebas Neue</option>
+                <option>Playfair Display</option>
+                <option>Poppins</option>
+                <option>Oswald</option>
+                <option>Raleway</option>
+                <option>Inter</option>
+                <option>DM Sans</option>
+                <option>Space Grotesk</option>
+                <option>Outfit</option>
+                <option>Sora</option>
+                <option>Archivo Black</option>
+              </select>
+            </label>
+            <label class="campo">
+              <span class="campo__etiqueta">Tipografía de cuerpo</span>
+              <select class="control" id="tema-fuente-cuerpo">
+                <option>Montserrat</option>
+                <option>Inter</option>
+                <option>Open Sans</option>
+                <option>Lato</option>
+                <option>Source Sans 3</option>
+                <option>DM Sans</option>
+                <option>Nunito</option>
+                <option>Work Sans</option>
+                <option>Rubik</option>
+                <option>IBM Plex Sans</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </details>
+
       <details class="paso" open>
         <summary class="paso__resumen">
           <span class="paso__num">1</span>

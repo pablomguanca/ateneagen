@@ -13,6 +13,48 @@
   const ICONO_SUMAR = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg>';
   const ICONO_SUMADO = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>';
 
+  const FUENTES_TITULOS = [
+    'Bebas Neue', 'Playfair Display', 'Poppins', 'Oswald', 'Raleway',
+    'Inter', 'DM Sans', 'Space Grotesk', 'Outfit', 'Sora', 'Archivo Black'
+  ];
+  const FUENTES_CUERPO = [
+    'Montserrat', 'Inter', 'Open Sans', 'Lato', 'Source Sans 3',
+    'DM Sans', 'Nunito', 'Work Sans', 'Rubik', 'IBM Plex Sans'
+  ];
+
+  const TEMAS = {
+    'elegante-oscuro': {
+      nombre: 'Elegante oscuro', acento: '#C9A84C', modo: 'oscuro',
+      fondo: '#06060A', fondo2: '#0E0E18', superficie: '#1A1A2E', superficieBorde: '#2A2A44',
+      texto: '#F0EBE0', textoApagado: '#9E9688', textoTenue: '#5F5B66',
+      fuenteTitulos: 'Bebas Neue', fuenteCuerpo: 'Montserrat'
+    },
+    'corporativo': {
+      nombre: 'Corporativo', acento: '#2563EB', modo: 'claro',
+      fondo: '#FFFFFF', fondo2: '#F8FAFC', superficie: '#E2E8F0', superficieBorde: '#CBD5E1',
+      texto: '#0F172A', textoApagado: '#64748B', textoTenue: '#94A3B8',
+      fuenteTitulos: 'Inter', fuenteCuerpo: 'Inter'
+    },
+    'moderno': {
+      nombre: 'Moderno', acento: '#8B5CF6', modo: 'oscuro',
+      fondo: '#0F172A', fondo2: '#1E293B', superficie: '#334155', superficieBorde: '#475569',
+      texto: '#E2E8F0', textoApagado: '#94A3B8', textoTenue: '#64748B',
+      fuenteTitulos: 'Space Grotesk', fuenteCuerpo: 'Inter'
+    },
+    'calido': {
+      nombre: 'Cálido', acento: '#B45309', modo: 'claro',
+      fondo: '#FFFBEB', fondo2: '#FEF3C7', superficie: '#F3E8D0', superficieBorde: '#E5D5B5',
+      texto: '#292524', textoApagado: '#78716C', textoTenue: '#A8A29E',
+      fuenteTitulos: 'Playfair Display', fuenteCuerpo: 'Lato'
+    },
+    'minimalista': {
+      nombre: 'Minimalista', acento: '#18181B', modo: 'claro',
+      fondo: '#FAFAFA', fondo2: '#F5F5F5', superficie: '#E5E5E5', superficieBorde: '#D4D4D4',
+      texto: '#171717', textoApagado: '#737373', textoTenue: '#A3A3A3',
+      fuenteTitulos: 'DM Sans', fuenteCuerpo: 'DM Sans'
+    }
+  };
+
   const uid = () => Math.random().toString(36).slice(2, 10);
 
   const hoyISO = () => {
@@ -39,7 +81,8 @@
     inversion: { moneda: 'USD', descuento: 0, impuestoNombre: 'IVA', impuesto: 0, pagos: [] },
     condiciones: '',
     proximosPasos: '',
-    opciones: { firmas: true, credito: true }
+    opciones: { firmas: true, credito: true },
+    tema: { preset: 'elegante-oscuro', acento: '#C9A84C', fuenteTitulos: 'Bebas Neue', fuenteCuerpo: 'Montserrat' }
   });
 
   const ejemplo = () => ({
@@ -88,10 +131,11 @@
     },
     condiciones: 'Cada entrega incluye dos rondas de cambios. Las rondas adicionales se cotizan aparte.\nLos plazos corren desde el primer pago y la recepción de los materiales necesarios: textos, fotos y accesos.\nEl dominio, el hosting y la plataforma de la tienda quedan a nombre del cliente y se abonan por separado.\nEl servicio mensual se contrata por un mínimo de tres meses y se cancela con 30 días de aviso.\nCon el pago completo, todos los archivos finales pasan a ser del cliente.',
     proximosPasos: 'Aceptar la propuesta desde este link.\nAbonar el primer pago para reservar la fecha de inicio.\nAgendar la reunión de descubrimiento de la primera semana.',
-    opciones: { firmas: true, credito: true }
+    opciones: { firmas: true, credito: true },
+    tema: { preset: 'elegante-oscuro', acento: '#C9A84C', fuenteTitulos: 'Bebas Neue', fuenteCuerpo: 'Montserrat' }
   });
 
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $ =(sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   const obtener = (obj, ruta) => ruta.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
@@ -155,8 +199,10 @@
       inversion: { ...limpiar(d.inversion, base.inversion), pagos: lista(d.inversion?.pagos, LISTAS.pagos.nuevo) },
       condiciones: texto(d.condiciones),
       proximosPasos: texto(d.proximosPasos),
-      opciones: { ...base.opciones, ...(d.opciones || {}) }
+      opciones: { ...base.opciones, ...(d.opciones || {}) },
+      tema: { ...base.tema, ...(d.tema && typeof d.tema === 'object' ? d.tema : {}) }
     };
+    if (!TEMAS[n.tema.preset]) n.tema.preset = 'elegante-oscuro';
     n.servicios.forEach(s => {
       ['nombre', 'descripcion', 'entregables'].forEach(k => { s[k] = texto(s[k]); });
       if (!MODALIDADES[s.modalidad]) s.modalidad = 'unico';
@@ -340,6 +386,7 @@
     });
     actualizarLogo();
     renderListas();
+    llenarTemaEditor();
   };
 
   const vacioHTML = t => `<span class="doc__vacio">${esc(t)}</span>`;
@@ -478,10 +525,93 @@
     });
   };
 
+  const hexARgb = hex => {
+    const h = hex.replace('#', '');
+    return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+  };
+
+  const rgbAHex = (r, g, b) => '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+
+  const mezclar = (hex, blanco, t) => {
+    const [r, g, b] = hexARgb(hex);
+    const f = blanco ? 255 : 0;
+    return rgbAHex(r + (f - r) * t, g + (f - g) * t, b + (f - b) * t);
+  };
+
+  const conAlpha = (hex, a) => { const [r, g, b] = hexARgb(hex); return `rgba(${r}, ${g}, ${b}, ${a})`; };
+
+  const luminancia = hex => { const [r, g, b] = hexARgb(hex).map(v => v / 255); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+
+  const fuentesEnUso = new Set();
+  const cargarFuente = nombre => {
+    if (fuentesEnUso.has(nombre)) return;
+    fuentesEnUso.add(nombre);
+    const pesos = nombre === 'Bebas Neue' || nombre === 'Archivo Black' ? '400' : '400;500;700';
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(nombre)}:wght@${pesos}&display=swap`;
+    document.head.append(link);
+  };
+
+  const aplicarTema = doc => {
+    const t = estado.tema;
+    const preset = TEMAS[t.preset] || TEMAS['elegante-oscuro'];
+    const acento = t.acento || preset.acento;
+    const esClaro = preset.modo === 'claro';
+
+    doc.style.setProperty('--negro', preset.fondo);
+    doc.style.setProperty('--negro-2', preset.fondo2);
+    doc.style.setProperty('--superficie', preset.superficie);
+    doc.style.setProperty('--superficie-borde', preset.superficieBorde);
+    doc.style.setProperty('--marfil', preset.texto);
+    doc.style.setProperty('--marfil-apagado', preset.textoApagado);
+    doc.style.setProperty('--marfil-tenue', preset.textoTenue);
+
+    doc.style.setProperty('--dorado', acento);
+    doc.style.setProperty('--dorado-claro', mezclar(acento, true, 0.3));
+    doc.style.setProperty('--dorado-papel', mezclar(acento, false, 0.2));
+    doc.style.setProperty('--dorado-tenue', conAlpha(acento, 0.32));
+    doc.style.setProperty('--dorado-fondo', conAlpha(acento, 0.1));
+
+    const ft = t.fuenteTitulos || preset.fuenteTitulos;
+    const fc = t.fuenteCuerpo || preset.fuenteCuerpo;
+    cargarFuente(ft);
+    cargarFuente(fc);
+    doc.style.setProperty('--fuente-display', `'${ft}', 'Georgia', serif`);
+    doc.style.setProperty('--fuente-texto', `'${fc}', 'Helvetica Neue', Arial, sans-serif`);
+
+    if (esClaro) {
+      const portadaBg = mezclar(acento, false, 0.7);
+      const portadaTexto = luminancia(portadaBg) > 0.4 ? '#111111' : '#F5F5F0';
+      doc.style.setProperty('--portada-fondo', portadaBg);
+      doc.style.setProperty('--portada-texto', portadaTexto);
+      doc.style.setProperty('--portada-acento', mezclar(acento, true, 0.15));
+      doc.style.setProperty('--portada-apagado', conAlpha(portadaTexto, 0.55));
+      doc.style.setProperty('--portada-borde', conAlpha(acento, 0.25));
+      doc.style.setProperty('--portada-linea', conAlpha(portadaTexto, 0.18));
+      doc.style.setProperty('--portada-acento-claro', mezclar(acento, true, 0.3));
+
+      doc.style.setProperty('--papel', preset.fondo);
+      doc.style.setProperty('--tinta', preset.texto);
+      doc.style.setProperty('--tinta-suave', preset.textoApagado);
+      doc.style.setProperty('--tinta-tenue', preset.textoTenue);
+      doc.style.setProperty('--linea-papel', preset.superficie);
+    } else {
+      doc.style.removeProperty('--portada-fondo');
+      doc.style.removeProperty('--portada-texto');
+      doc.style.removeProperty('--portada-acento');
+      doc.style.removeProperty('--portada-apagado');
+      doc.style.removeProperty('--portada-borde');
+      doc.style.removeProperty('--portada-linea');
+      doc.style.removeProperty('--portada-acento-claro');
+    }
+  };
+
   const renderDocumento = () => {
     const web = !imprimiendo && (esCliente || vista !== 'pdf');
     const doc = $('#documento');
     doc.classList.toggle('doc--web', web);
+    aplicarTema(doc);
     const s = estado;
     const m = s.inversion.moneda;
     const c = calcular();
@@ -689,6 +819,58 @@
   formulario.addEventListener('input', alEditar);
   formulario.addEventListener('change', alEditar);
   formulario.addEventListener('submit', ev => ev.preventDefault());
+
+  const llenarTemaEditor = () => {
+    const t = estado.tema;
+    $$('.tema-card').forEach(el => el.classList.toggle('tema-card--activo', el.dataset.tema === t.preset));
+    const acento = $('#tema-acento');
+    const ft = $('#tema-fuente-titulos');
+    const fc = $('#tema-fuente-cuerpo');
+    if (acento) acento.value = t.acento || TEMAS[t.preset]?.acento || '#C9A84C';
+    if (ft) ft.value = t.fuenteTitulos || TEMAS[t.preset]?.fuenteTitulos || 'Bebas Neue';
+    if (fc) fc.value = t.fuenteCuerpo || TEMAS[t.preset]?.fuenteCuerpo || 'Montserrat';
+  };
+
+  const contenedorTemas = $('#temas-grid');
+  if (contenedorTemas) {
+    contenedorTemas.addEventListener('click', ev => {
+      const card = ev.target.closest('.tema-card');
+      if (!card) return;
+      const id = card.dataset.tema;
+      const preset = TEMAS[id];
+      if (!preset) return;
+      estado.tema.preset = id;
+      estado.tema.acento = preset.acento;
+      estado.tema.fuenteTitulos = preset.fuenteTitulos;
+      estado.tema.fuenteCuerpo = preset.fuenteCuerpo;
+      llenarTemaEditor();
+      actualizar();
+    });
+  }
+
+  const temaAcento = $('#tema-acento');
+  if (temaAcento) {
+    temaAcento.addEventListener('input', ev => {
+      estado.tema.acento = ev.target.value;
+      actualizar();
+    });
+  }
+
+  const temaFT = $('#tema-fuente-titulos');
+  if (temaFT) {
+    temaFT.addEventListener('change', ev => {
+      estado.tema.fuenteTitulos = ev.target.value;
+      actualizar();
+    });
+  }
+
+  const temaFC = $('#tema-fuente-cuerpo');
+  if (temaFC) {
+    temaFC.addEventListener('change', ev => {
+      estado.tema.fuenteCuerpo = ev.target.value;
+      actualizar();
+    });
+  }
 
   const dialogo = $('#dialogo');
   const confirmar = ({ titulo, texto: cuerpo, aceptar }) => {

@@ -783,18 +783,18 @@ textarea {
   aspect-ratio: 210/296.6;
   padding: 5.4em 5.8em 5em;
   overflow: hidden;
-  background: var(--negro);
-  color: var(--marfil);
+  background: var(--portada-fondo, var(--negro));
+  color: var(--portada-texto, var(--marfil));
   box-shadow: var(--sombra-hoja);
 }
 .portada .doc__vacio {
-  color: var(--marfil-tenue);
+  color: var(--portada-apagado, var(--marfil-tenue));
 }
 .portada::before {
   content: "";
   position: absolute;
   inset: 2.3em;
-  border: 1px solid var(--dorado-tenue);
+  border: 1px solid var(--portada-borde, var(--dorado-tenue));
   pointer-events: none;
 }
 .portada__superior {
@@ -819,7 +819,7 @@ textarea {
 .portada__numero {
   margin: 0;
   font-size: 0.95em;
-  color: var(--marfil-apagado);
+  color: var(--portada-apagado, var(--marfil-apagado));
   text-align: right;
 }
 .portada__centro {
@@ -828,7 +828,7 @@ textarea {
 .portada__para {
   margin: 0 0 1.3em;
   font-size: 1.15em;
-  color: var(--dorado);
+  color: var(--portada-acento, var(--dorado));
 }
 .portada__titulo {
   max-width: 11em;
@@ -846,7 +846,7 @@ textarea {
   height: 1px;
   margin: 2.6em 0 0;
   border: 0;
-  background: var(--dorado);
+  background: var(--portada-acento, var(--dorado));
 }
 .portada__meta {
   display: grid;
@@ -854,12 +854,12 @@ textarea {
   gap: 1.7em 3em;
   margin: 0;
   padding-top: 2em;
-  border-top: 1px solid var(--superficie);
+  border-top: 1px solid var(--portada-linea, var(--superficie));
 }
 .portada__meta dt {
   margin-bottom: 0.3em;
   font-size: 0.85em;
-  color: var(--marfil-apagado);
+  color: var(--portada-apagado, var(--marfil-apagado));
 }
 .portada__meta dd {
   margin: 0;
@@ -868,11 +868,11 @@ textarea {
 }
 .portada__meta dd span {
   display: block;
-  color: var(--marfil-apagado);
+  color: var(--portada-apagado, var(--marfil-apagado));
   font-size: 0.9em;
 }
 .portada__meta .portada__urgente {
-  color: var(--dorado-claro);
+  color: var(--portada-acento-claro, var(--dorado-claro));
 }
 
 .cuerpo {
@@ -1583,6 +1583,107 @@ body.modo-cliente .doc--web .portada {
     flex-direction: column;
   }
 }
+.temas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 0.7rem;
+}
+
+.tema-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem;
+  border: 2px solid var(--superficie-borde);
+  border-radius: var(--radio-m);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+  font: inherit;
+  color: var(--marfil);
+  text-align: left;
+}
+.tema-card:hover {
+  border-color: var(--marfil-tenue);
+}
+.tema-card--activo {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 1px var(--dorado);
+}
+
+.tema-card__muestra {
+  display: flex;
+  height: 3.2rem;
+  border-radius: var(--radio-s);
+  overflow: hidden;
+}
+.tema-card__muestra span {
+  flex: 1;
+}
+.tema-card__muestra span:first-child {
+  flex: 2;
+}
+
+.tema-card__nombre {
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--marfil-apagado);
+}
+.tema-card--activo .tema-card__nombre {
+  color: var(--dorado);
+}
+
+.diseno-fila {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.color-campo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-input {
+  appearance: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 2px solid var(--superficie-borde);
+  border-radius: var(--radio-s);
+  background: none;
+  cursor: pointer;
+}
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+.color-input::-moz-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.icono-pincel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icono-pincel svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 @keyframes revelar {
   from {
     opacity: 0;
