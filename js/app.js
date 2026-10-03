@@ -1385,17 +1385,14 @@
       });
     });
 
-    // Google sign-in
-    authGoogle.addEventListener('click', async () => {
+    // Google sign-in (redirect — no popup)
+    authGoogle.addEventListener('click', () => {
       setAuthCargando(true);
       if (authErrorG) authErrorG.hidden = true;
-      try {
-        await AteneaDB.auth.signInGoogle();
-      } catch (e) {
+      AteneaDB.auth.signInGoogle().catch(e => {
         mostrarErrorAuth(authErrorG, e);
-      } finally {
         setAuthCargando(false);
-      }
+      });
     });
 
     // Email form submit

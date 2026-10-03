@@ -47,21 +47,27 @@
 
   const onAuthChange = callback => auth.onAuthStateChanged(callback);
 
-  const signInGoogle = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const cred = await auth.signInWithPopup(provider);
-    const userRef = db.collection('users').doc(cred.user.uid);
+  const _crearPerfilSiNoExiste = async (user) => {
+    const userRef = db.collection('users').doc(user.uid);
     const snap = await userRef.get();
     if (!snap.exists) {
       await userRef.set({
-        email: cred.user.email,
-        displayName: cred.user.displayName || '',
-        photoURL: cred.user.photoURL || '',
+        email: user.email,
+        displayName: user.displayName || '',
+        photoURL: user.photoURL || '',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
     }
-    return cred;
   };
+
+  const signInGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return auth.signInWithRedirect(provider);
+  };
+
+  auth.getRedirectResult().then(result => {
+    if (result?.user) _crearPerfilSiNoExiste(result.user);
+  }).catch(() => {});
 
   const signIn = (email, password) => auth.signInWithEmailAndPassword(email, password);
 
