@@ -1317,8 +1317,143 @@
     actualizarAvisoPagos();
   };
 
-  if (location.hash.startsWith(PREFIJO)) iniciarCliente();
-  else iniciarEditor();
+  // ----------------------------------------------------------
+  // Auth flow
+  // ----------------------------------------------------------
+
+  const authPantalla   = $('#auth-pantalla');
+  const authForm       = $('#auth-form');
+  const authGoogle     = $('#auth-google');
+  const authErrorG     = $('#auth-error-google');
+  const authError      = $('#auth-error');
+  const authSubmit     = $('#auth-submit');
+  const authSubmitText = authSubmit?.querySelector('.auth__submit-texto');
+  const authSpinner    = authSubmit?.querySelector('.auth__spinner');
+  const authNombre     = $('#auth-nombre');
+  const authEmail      = $('#auth-email');
+  const authPass       = $('#auth-pass');
+  const menuUsuario    = $('#menu-usuario');
+  let authModo = 'login';
+
+  const mostrarErrorAuth = (el, msg) => {
+    if (!el) return;
+    const MENSAJES = {
+      'auth/user-not-found':          'No hay cuenta con ese email.',
+      'auth/wrong-password':          'Contraseña incorrecta.',
+      'auth/invalid-credential':      'Email o contraseña incorrectos.',
+      'auth/email-already-in-use':    'Ya existe una cuenta con ese email.',
+      'auth/weak-password':           'La contraseña debe tener al menos 6 caracteres.',
+      'auth/invalid-email':           'El email no es válido.',
+      'auth/too-many-requests':       'Demasiados intentos. Esperá un momento.',
+      'auth/popup-closed-by-user':    '',
+      'auth/cancelled-popup-request': ''
+    };
+    const texto = MENSAJES[msg?.code] ?? MENSAJES[msg?.message] ?? (typeof msg === 'string' ? msg : 'Ocurrió un error. Intentá de nuevo.');
+    if (!texto) { el.hidden = true; return; }
+    el.textContent = texto;
+    el.hidden = false;
+  };
+
+  const setAuthCargando = (cargando) => {
+    if (authSubmit) authSubmit.disabled = cargando;
+    if (authGoogle) authGoogle.disabled = cargando;
+    if (authSubmitText) authSubmitText.textContent = cargando ? 'Cargando...' : (authModo === 'login' ? 'Iniciar sesión' : 'Crear cuenta');
+    if (authSpinner) authSpinner.hidden = !cargando;
+  };
+
+  if (authPantalla && window.AteneaDB) {
+    // Tabs login/registro
+    authPantalla.querySelectorAll('[data-auth-tab]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        authModo = tab.dataset.authTab === 'registro' ? 'registro' : 'login';
+        authPantalla.querySelectorAll('[data-auth-tab]').forEach(t => t.classList.toggle('auth__tab--activo', t === tab));
+        const campoNombre = authPantalla.querySelector('.auth__campo--nombre');
+        if (campoNombre) campoNombre.hidden = authModo === 'login';
+        if (authSubmitText) authSubmitText.textContent = authModo === 'login' ? 'Iniciar sesión' : 'Crear cuenta';
+        if (authPass) authPass.autocomplete = authModo === 'login' ? 'current-password' : 'new-password';
+        if (authError) authError.hidden = true;
+      });
+    });
+
+    // Toggle password visibility
+    authPantalla.querySelectorAll('[data-auth-toggle-pass]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!authPass) return;
+        const show = authPass.type === 'password';
+        authPass.type = show ? 'text' : 'password';
+        btn.setAttribute('aria-label', show ? 'Ocultar contraseña' : 'Mostrar contraseña');
+      });
+    });
+
+    // Google sign-in
+    authGoogle.addEventListener('click', async () => {
+      setAuthCargando(true);
+      if (authErrorG) authErrorG.hidden = true;
+      try {
+        await AteneaDB.auth.signInGoogle();
+      } catch (e) {
+        mostrarErrorAuth(authErrorG, e);
+      } finally {
+        setAuthCargando(false);
+      }
+    });
+
+    // Email form submit
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = authEmail?.value.trim();
+      const pass  = authPass?.value;
+      if (!email || !pass) return;
+      setAuthCargando(true);
+      if (authError) authError.hidden = true;
+      try {
+        if (authModo === 'registro') {
+          await AteneaDB.auth.signUp(email, pass, authNombre?.value.trim());
+        } else {
+          await AteneaDB.auth.signIn(email, pass);
+        }
+      } catch (e) {
+        mostrarErrorAuth(authError, e);
+      } finally {
+        setAuthCargando(false);
+      }
+    });
+  }
+
+  // Cerrar sesión desde menú
+  document.querySelector('[data-accion="cerrar-sesion"]')?.addEventListener('click', async () => {
+    if (window.AteneaDB) {
+      await AteneaDB.auth.signOut();
+      location.reload();
+    }
+  });
+
+  // ----------------------------------------------------------
+  // Init
+  // ----------------------------------------------------------
+
+  const esClienteLink = location.hash.startsWith(PREFIJO);
+
+  if (esClienteLink) {
+    iniciarCliente();
+  } else if (window.AteneaDB) {
+    authPantalla.hidden = false;
+    document.body.classList.add('auth-activo');
+    let editorIniciado = false;
+    AteneaDB.auth.onAuthChange(user => {
+      if (user) {
+        authPantalla.hidden = true;
+        document.body.classList.remove('auth-activo');
+        if (menuUsuario) menuUsuario.textContent = user.displayName || user.email;
+        if (!editorIniciado) { editorIniciado = true; iniciarEditor(); }
+      } else {
+        authPantalla.hidden = false;
+        document.body.classList.add('auth-activo');
+      }
+    });
+  } else {
+    iniciarEditor();
+  }
 
   window.addEventListener('hashchange', () => {
     if (location.hash.startsWith(PREFIJO) || esCliente) location.reload();
